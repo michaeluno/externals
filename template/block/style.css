@@ -1,0 +1,34 @@
+/*
+    Template Name:  Block
+    Template URI:   http://en.michaeluno.jp
+    Author:         Michael Uno
+    Author URI:     http://en.michaeluno.jp
+    Description:    Displays text external items.
+    Version:        1.0.0
+    License:        GNU General Public License v2 or later
+    License URI:    http://www.gnu.org/licenses/gpl-2.0.html
+    Tags:           default
+    Text Domain:    externals
+*/
+
+
+/* code { font-size: 120% } */
+
+.external-block-container {
+    
+}
+.external-block-item > pre {
+    border: 1px solid #ccc;
+    padding: 1em;
+    white-space: pre;
+    display: block;
+    word-wrap: normal;
+    
+    font: 100%;
+    overflow: auto; 
+    overflow-x: scroll; 
+
+    
+    /* background: #fff7f0; 
+    color: #00 */
+}

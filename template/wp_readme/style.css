@@ -1,0 +1,86 @@
+/*
+    Template Name:  WordPress Readme
+    Template URI:   http://en.michaeluno.jp
+    Author:         Michael Uno
+    Author URI:     http://en.michaeluno.jp
+    Description:    Displays text external items.
+    Version:        1.0.0
+    License:        GNU General Public License v2 or later
+    License URI:    http://www.gnu.org/licenses/gpl-2.0.html
+    Tags:           default
+    Text Domain:    externals
+*/
+
+
+/* code { font-size: 120% } */
+
+.external-wp_readme-container {
+    
+}
+.external-wp_readme-item > pre {
+    border: 1px solid #ccc;
+    padding: 1em;
+    white-space: pre;
+    display: block;
+    word-wrap: normal;
+    
+    font: 100%;
+    overflow: auto; 
+    overflow-x: scroll; 
+
+    
+    /* background: #fff7f0; 
+    color: #00 */
+}
+.external-wp_readme-last-modified-date {
+    font-size: smaller;
+    float: right;
+}
+
+/**
+ * jQuery Tabs
+ */
+/* .ui-tabs-nav {
+    border-bottom: 1px solid #DDDDDD;
+}
+.ui-tabs-nav > li {
+    float: left;
+    margin-bottom: -1px;
+}
+.ui-tabs-nav > li > a {
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 4px 4px 0 0;
+    line-height: 1.42857;
+    margin-right: 2px;
+}
+.ui-tabs-nav > li > a:hover {
+    border-color: #EEEEEE #EEEEEE #DDDDDD;
+}
+.ui-tabs-nav > li.active > a, .ui-tabs-nav > li.active > a:hover, .ui-tabs-nav > li.active > a:focus {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #FFFFFF;
+    border-color: #DDDDDD #DDDDDD rgba(0, 0, 0, 0);
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    color: #555555;
+    cursor: default;
+}
+.ui-tabs-nav.nav-justified {
+    border-bottom: 0 none;
+    width: 100%;
+}
+.ui-tabs-nav.nav-justified > li {
+    float: none;
+}
+.ui-tabs-nav.nav-justified > li > a {
+    margin-bottom: 5px;
+    text-align: center;
+}
+.ui-tabs-nav.nav-justified > .dropdown .dropdown-menu {
+    left: auto;
+    top: auto;
+} */

@@ -1,0 +1,113 @@
+/*
+    Template Name:  Feed
+    Template URI:   http://en.michaeluno.jp
+    Author:         Michael Uno
+    Author URI:     http://en.michaeluno.jp
+    Description:    Displays feeds.
+    Version:        1.0.0
+    License:        GNU General Public License v2 or later
+    License URI:    http://www.gnu.org/licenses/gpl-2.0.html
+    Tags:           default
+    Text Domain:    externals
+*/
+
+/**
+ * Item Container
+ */
+.external-feed-container .external-feed-item {
+    margin-bottom: 2em;
+    width: auto;
+}
+/**
+ * Item Title
+ */
+.external-feed-container .external-feed-item-title {
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/**
+ * Images
+ */
+.external-feed-container .external-feed-item-images {
+    display: inline-block;
+/* 
+width: 20%; */
+/* width: auto; */
+max-width: 20%;
+min-width: 20%; 
+    margin: 0;
+    padding: 0;
+    border: 0;
+    padding-right: 1%;
+        
+}
+.external-feed-container .external-feed-item-image {
+    /* width: 100%; */
+    text-align: right;    
+}
+.external-feed-container .external-feed-item-image > img {
+    margin-right: auto;
+    margin-left: auto;
+    width: auto;
+    box-shadow: none;
+}
+@media only screen and (max-width: 480px) {
+    /* STYLES HERE for DEVICES with physical max-screen width of 480px */
+    .external-feed-container .external-feed-item-images {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .external-feed-container .external-feed-item-image {
+        /* width: auto; */
+        display: inline-block;
+        margin-right: 1em;
+        margin-bottom: 1em;
+        text-align: left;
+    }
+}
+
+/**
+ * Item Meta
+ */
+.external-feed-container .external-feed-meta {
+    width: 100%;
+}
+.external-feed-container .external-feed-date {
+    margin-right: 1em;
+}
+.external-feed-container .external-feed-author {
+    margin-right: 1em;    
+}
+
+/**
+ * Item Description
+ */
+.external-feed-container .external-feed-description {
+    display: inline-block;
+/* 
+width: 78%; */
+/* width: auto; */
+max-width: 78%;    
+min-width: 78%;
+    border: 0;    
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+}
+@media only screen and (max-width: 480px) {
+    /* STYLES HERE for DEVICES with physical max-screen width of 480px */
+    .external-feed-container .external-feed-description {
+        max-width: 100%;
+    }
+}
+
+/**
+ * Misc
+ */
+.external-feed-container .external-feed-item blockquote {
+    margin-left: 0;
+}
