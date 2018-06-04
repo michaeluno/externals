@@ -24,11 +24,12 @@
                 . "</div>";
         } ?></div>
         <div class="external-feed-description">
-        <div class="external-feed-meta">            
-            <span class="external-feed-date"><?php echo human_time_diff( strtotime( $_aItem[ 'date' ] ), current_time( 'timestamp' ) ) . " " . __( 'ago' ); ?></span>
-            <span class="external-feed-author"><?php echo $_aItem[ 'author' ]; ?></span>
-        </div>
-        <?php echo strip_tags( $_aItem[ 'description' ] ); ?>
+            <div class="external-feed-meta">            
+                <span class="external-feed-date"><?php echo human_time_diff( strtotime( $_aItem[ 'date' ] ), current_time( 'timestamp' ) ) . " " . __( 'ago' ); ?></span>
+                <span class="external-feed-author"><?php echo $_aItem[ 'author' ]; ?></span>
+                <span class="external-feed-source">from <?php echo parse_url( $_aItem[ 'source' ], PHP_URL_HOST ); ?></span>
+            </div>
+            <?php echo strip_tags( $_aItem[ 'description' ] ); ?>
         </div>
     </div>
 <?php endforeach; ?>    

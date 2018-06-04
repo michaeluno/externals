@@ -83,13 +83,18 @@ class Externals_ExternalOutput_feed extends Externals_ExternalOutput_Base {
                 'description'   => $_oItem->get_description(),
                 'content'       => $_oItem->get_content(),
                 'images'        => $this->_getImages( $_oItem->get_content() ),
-                
+                'source'        => $_oItem->get_base(),
             );
+                        
+            $_aItem = apply_filters(
+                Externals_Registry::HOOK_SLUG . '_filter_feed_item',
+                $_aItem
+            );            
             
-            // Filters
+            // White/Black lists 
             if ( $this->_isBlocked( $_aItem ) ) {
                 continue;
-            }
+            }            
             
             $_aItems[ $_sID ] = $_aItem;
             
