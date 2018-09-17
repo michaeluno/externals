@@ -73,9 +73,9 @@ class Externals_ExternalOutput_feed extends Externals_ExternalOutput_Base {
                 break;
             }
             
-            $_sID = $_oItem->get_id();
+            $_sID           = $_oItem->get_id();
             $_nsDescription = $_oItem->get_description();
-            $_nsContent = $_oItem->get_content();
+            $_nsContent     = $_oItem->get_content();
             $_aItem = array(
                 'id'            => $_sID,   // guid
                 'title'         => $_oItem->get_title(),
@@ -87,19 +87,26 @@ class Externals_ExternalOutput_feed extends Externals_ExternalOutput_Base {
                 'images'        => $this->_getImages( $_nsContent ? $_nsContent : $_nsDescription ),
                 'source'        => $_oItem->get_base(),
             );
-            if ( $_oEnclosure = $_oItem->get_enclosure()) {
+
+            if ( $_oEnclosure = $_oItem->get_enclosure() ) {
            		$_aItem[ 'description' ] .= $_oEnclosure->get_description();
-                $_aItem[ 'images' ][] = "<img src='" . esc_url( $_oEnclosure->get_thumbnail() ) . "' />";
+           		$_sImageURL = $_oEnclosure->get_thumbnail();
+                $_aItem[ 'images' ][ $_sImageURL ] = $_sImageURL;
+                if ( false !== strpos( $_oEnclosure->get_type(), 'image' ) ) {
+                    $_sImageURL = $_oEnclosure->get_link();
+                    $_aItem[ 'images' ][ $_sImageURL ] = $_sImageURL;
+                }
            	}
                         
             $_aItem = apply_filters(
                 Externals_Registry::HOOK_SLUG . '_filter_feed_item',
                 $_aItem,
-                $_oItem // 0.3.12+
+                $_oItem, // 0.3.12+
+                $this->oArgument    // 0.3.13+
             );            
             
-            // White/Black lists 
-            if ( empty( $_aItem ) || $this->_isBlocked( $_aItem ) ) {
+            // Black listed items will be dropped through the above filter.
+            if ( empty( $_aItem ) ) {
                 continue;
             }            
             
@@ -110,19 +117,7 @@ class Externals_ExternalOutput_feed extends Externals_ExternalOutput_Base {
         return $_aItems;
         
     }
-        /**
-         * @since       1
-         * @return      boolean
-         */
-        private function _isBlocked( $aItem ) {
-            return ( boolean ) apply_filters( 
-                Externals_Registry::HOOK_SLUG . '_filter_whether_item_is_blocked_' . $this->sExternalType,
-                false,  // the filtering item
-                $aItem,
-                $this->oArgument
-            );            
-        }
-    
+
         /**
          * @since       1
          * @return      string
@@ -190,8 +185,7 @@ class Externals_ExternalOutput_feed extends Externals_ExternalOutput_Base {
                 if ( false === filter_var( $_sURL, FILTER_VALIDATE_URL ) ) {
                     continue;
                 }
-                $_sAlt      = $_oIMG->getAttribute( 'alt' );
-                $_aOutput[ $_sURL ] = "<img src='" . esc_url( $_sURL ) . "' alt='" . esc_attr( $_sAlt ) . "' />";
+                $_aOutput[ $_sURL ] = $_sURL;
             }
             return $_aOutput;
             

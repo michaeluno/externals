@@ -24,21 +24,20 @@ class Externals_ExternalType_ItemFilter_feed extends Externals_PluginUtility {
      * Sets up hooks and properties.
      */
     public function __construct() {
-        
-        add_filter(
-            Externals_Registry::HOOK_SLUG . '_filter_whether_item_is_blocked_' . 'feed',
-            array( $this, 'replyToDetermineItemIsBlocked' ),
-            10,     // priority
-            3       // number of parameters
-        );
 
         add_filter(
-            Externals_Registry::HOOK_SLUG . '_filter_whether_image_is_blocked_' . 'feed',
-            array( $this, 'replyToDetermineImageIsBlocked' ),
-            10,     // priority
-            3       // number of parameters
+            Externals_Registry::HOOK_SLUG . '_filter_feed_item',
+            array( $this, 'replyToBlockItem' ),
+            10,
+            3
         );
-        
+        add_filter(
+            Externals_Registry::HOOK_SLUG . '_filter_feed_item',
+            array( $this, 'replyToBlockImages' ),
+            10,
+            3
+        );
+
         if ( is_admin() ) {
             
             new Externals_PostMetaBox_Filter_feed(
@@ -58,16 +57,49 @@ class Externals_ExternalType_ItemFilter_feed extends Externals_PluginUtility {
     }
 
     /**
-     * @since       1
-     * @return      boolean
-     */    
-    public function replyToDetermineImageIsBlocked( $bBlocked, $sImageURL, $oArgument ) {
-        return $bBlocked;
+     * @since   0.3.13
+     * @return  array   The parsed item image array.
+     */
+    public function replyToBlockImages( $aItem, $oItem, $oArgument ) {
+
+        $_sSubstrings = $oArgument->get( 'blacklist_image', 'src' );
+
+        // If the option is not set, do nothing.
+        if ( ! $_sSubstrings ) {
+            return $aItem;
+        }
+        // It is possible that the item is already filtered.
+        if ( empty( $aItem ) ) {
+            return $aItem;
+        }
+        $_aSubstrings = preg_split( "/[\n\r]+/", $_sSubstrings );
+        foreach( $aItem[ 'images' ] as $_sKey => $_sImageURL ) {
+            if ( $this->___isBlocked( $_sImageURL, $_aSubstrings, true ) ) {
+                unset( $aItem[ 'images' ][ $_sKey ] );
+            }
+        }
+        return $aItem;
+
+    }
+
+    /**
+     * @since   0.3.13
+     * @return  array   The parsed item array.
+     */
+    public function replyToBlockItem( $aItem, $oItem, $oArgument ) {
+        if ( $this->_isBlockedBySubString( $aItem, $oArgument, false ) ) {
+            return array(); // empty item will be dropped
+        }
+        if ( $this->_isBlockedBySubString( $aItem, $oArgument, true ) ) {
+            return array();
+        }
+        return $aItem;
     }
     
     /**
      * @since       1
      * @return      boolean
+     * @deprecated  0.3.13
      */
     public function replyToDetermineItemIsBlocked( $bBlocked, $aItem, $oArgument ) {
         
@@ -105,7 +137,7 @@ class Externals_ExternalType_ItemFilter_feed extends Externals_PluginUtility {
                 if ( empty( $_aSubstrings ) ) {
                     continue;
                 }
-                if ( $this->_isBlocked( $aItem[ $_sKey ], $_aSubstrings, $bBlockIfSubstringExists ) ) {
+                if ( $this->___isBlocked( $aItem[ $_sKey ], $_aSubstrings, $bBlockIfSubstringExists ) ) {
                     return true;
                 }
             }
@@ -115,9 +147,9 @@ class Externals_ExternalType_ItemFilter_feed extends Externals_PluginUtility {
             /**
              * @return      boolean
              */
-            private function _isBlocked( $sSubject, array $aSubstrings, $bBlockIfSubstringExists=true ) {
+            private function ___isBlocked( $sSubject, array $aSubstrings, $bBlockIfSubstringExists=true ) {
                 
-                if ( ! $this->_isParsableScalar( $sSubject ) ) {
+                if ( ! $this->___isParsableScalar( $sSubject ) ) {
                     return false;
                 }
                             
@@ -131,7 +163,7 @@ class Externals_ExternalType_ItemFilter_feed extends Externals_PluginUtility {
                 
                 foreach( $aSubstrings as $_sSubstring ) {
                     
-                    if ( ! $this->_isParsableScalar( $_sSubstring ) ) {
+                    if ( ! $this->___isParsableScalar( $_sSubstring ) ) {
                         continue;
                     }                
                     $_sFunctionName     = $_aFunctionNames[ ( integer ) $this->bMBStringSupported ];
@@ -159,7 +191,7 @@ class Externals_ExternalType_ItemFilter_feed extends Externals_PluginUtility {
                  * @since       1
                  * @return      boolean
                  */
-                private function _isParsableScalar( $sSubject ) {
+                private function ___isParsableScalar( $sSubject ) {
                 
                     if ( ! is_scalar( $sSubject ) ) {
                         return false;

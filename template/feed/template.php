@@ -18,9 +18,9 @@
     <div class="external-feed-item">
         <h2 class="external-feed-title"><a href="<?php echo esc_url( $_aItem[ 'permalink' ] ); ?>" target="_blank" rel="nofollow"><?php echo $_aItem[ 'title' ]; ?></a></h2>        
         <div class="external-feed-item-images"><?php 
-        foreach( $_aItem[ 'images' ] as $_sIMG ) {
+        foreach( $_aItem[ 'images' ] as $_iIndex => $_sIMGURL ) {
             echo "<div class='external-feed-item-image'>"
-                    . $_sIMG
+                    . "<img src='" . esc_url( $_sIMGURL ) .  "' alt='" . esc_attr( basename( $_sIMGURL ) ) . "'/>"
                 . "</div>";
         } ?></div>
         <div class="external-feed-description">

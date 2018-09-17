@@ -120,24 +120,25 @@ class Externals_PostMetaBox_Filter_feed extends Externals_PostMetaBox_Base {
                     __( 'For multiple sub-strings, set one per line.', 'externals' ),                
                 ),
                 'default'    => $_oArgument->get( 'block_not_containing', 'permalink' ),
-            ),            
-            array(
-                'type'       => 'textarea',
-                'field_id'   => 'image',
-                'title'      => __( 'Sub-string in Image URL', 'externals' ),                
-                'attributes' => array(
-                    'wrap'  => 'off',
-                    'style' => 'min-width: 100%; overflow: auto;',
-                    'field' => array(
-                        'style' => 'width: 100%',
-                    ),
-                ),                
-                'tip'        => array(
-                    __( 'A feed item containing images with this sub-string will be blocked.', 'externals' ),                
-                    __( 'For multiple sub-strings, set one per line.', 'externals' ),                
-                ),
-                'default'    => $_oArgument->get( 'block_not_containing', 'image' ),
             ),
+// @deprecated  0.3.13  Not implemented yet anyway
+//            array(
+//                'type'       => 'textarea',
+//                'field_id'   => 'image',
+//                'title'      => __( 'Sub-string in Image URL', 'externals' ),
+//                'attributes' => array(
+//                    'wrap'  => 'off',
+//                    'style' => 'min-width: 100%; overflow: auto;',
+//                    'field' => array(
+//                        'style' => 'width: 100%',
+//                    ),
+//                ),
+//                'tip'        => array(
+//                    __( 'A feed item containing images with this sub-string will be blocked.', 'externals' ),
+//                    __( 'For multiple sub-strings, set one per line.', 'externals' ),
+//                ),
+//                'default'    => $_oArgument->get( 'block_not_containing', 'image' ),
+//            ),
             array()            
         );
         

@@ -3,7 +3,7 @@ Contributors:       Michael Uno, miunosoft
 Donate link:        http://en.michaeluno.jp/donate
 Tags:               external, rss, feed
 Requires at least:  3.3
-Tested up to:       4.2.2
+Tested up to:       4.9.8
 Stable tag:         3
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
@@ -65,6 +65,9 @@ WHen the external sites are, it will be useful
 
 = 1.0.0 = 
 - Released.
+
+= 0.3.13 =
+- Added the ability to filter images with sub-strings in feeds.
 
 = 0.3.12 =
 - Supported feed thumbnails with the `media:thumbnail` RSS2 element to be set in the `$aItem` variable for feeds.
