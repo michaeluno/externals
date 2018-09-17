@@ -74,15 +74,17 @@ class Externals_ExternalOutput_feed extends Externals_ExternalOutput_Base {
             }
             
             $_sID = $_oItem->get_id();
+            $_nsDescription = $_oItem->get_description();
+            $_nsContent = $_oItem->get_content();
             $_aItem = array(
                 'id'            => $_sID,   // guid
                 'title'         => $_oItem->get_title(),
                 'date'          => $this->_getItemDate( $_oItem, $_iTimezoneOffset ),
                 'author'        => $this->_getItemAuthor( $_oItem ),
                 'permalink'     => $_oItem->get_permalink(),
-                'description'   => $_oItem->get_description(),
-                'content'       => $_oItem->get_content(),
-                'images'        => $this->_getImages( $_oItem->get_content() ),
+                'description'   => $_nsDescription,
+                'content'       => $_nsContent,
+                'images'        => $this->_getImages( $_nsContent ? $_nsContent : $_nsDescription ),
                 'source'        => $_oItem->get_base(),
             );
             if ( $_oEnclosure = $_oItem->get_enclosure()) {
