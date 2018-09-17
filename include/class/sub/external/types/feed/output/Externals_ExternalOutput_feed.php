@@ -88,11 +88,12 @@ class Externals_ExternalOutput_feed extends Externals_ExternalOutput_Base {
                         
             $_aItem = apply_filters(
                 Externals_Registry::HOOK_SLUG . '_filter_feed_item',
-                $_aItem
+                $_aItem,
+                $_oItem // 0.3.12+
             );            
             
             // White/Black lists 
-            if ( $this->_isBlocked( $_aItem ) ) {
+            if ( empty( $_aItem ) || $this->_isBlocked( $_aItem ) ) {
                 continue;
             }            
             

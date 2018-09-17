@@ -61,6 +61,10 @@ WHen the external sites are, it will be useful
 4. **Widget Sample**
 
 == Changelog ==
- 
+
+
 = 1.0.0 = 
 - Released.
+
+= 0.3.12 =
+- Added a second parameter to the `externals_filter_feed_item` filter hook so that third-parties can access to the SimplePie item object.
