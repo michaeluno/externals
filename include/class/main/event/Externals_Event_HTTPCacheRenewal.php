@@ -18,7 +18,7 @@
  */
 class Externals_Event_HTTPCacheRenewal extends Externals_PluginUtility {
     
-    public $sCacheRenwalActionName = 'externals_action_http_cache_renewal';
+    public $sCacheRenewalActionName = 'externals_action_http_cache_renewal';
     
     /**
      * Sets up hooks.
@@ -35,7 +35,7 @@ class Externals_Event_HTTPCacheRenewal extends Externals_PluginUtility {
         );    
         
         add_action(
-            $this->sCacheRenwalActionName, // action hook name
+            $this->sCacheRenewalActionName, // action hook name
             array( $this, 'replyToRenewCache' ),
             10,
             4
@@ -90,7 +90,7 @@ class Externals_Event_HTTPCacheRenewal extends Externals_PluginUtility {
          */
         private function _scheduleBackgroundCacheRenewal( $sURL, $iCacheDuration, $aArguments, $sType ) {
             
-            $_sActionName = $this->sCacheRenwalActionName;
+            $_sActionName = $this->sCacheRenewalActionName;
             $_aArguments  = array(
                 $sURL,
                 $iCacheDuration,
