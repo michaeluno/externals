@@ -67,4 +67,5 @@ WHen the external sites are, it will be useful
 - Released.
 
 = 0.3.12 =
+- Supported feed thumbnails with the `media:thumbnail` RSS2 element to be set in the `$aItem` variable for feeds.
 - Added a second parameter to the `externals_filter_feed_item` filter hook so that third-parties can access to the SimplePie item object.

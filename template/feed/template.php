@@ -29,7 +29,7 @@
                 <span class="external-feed-author"><?php echo $_aItem[ 'author' ]; ?></span>
                 <span class="external-feed-source">from <a href="<?php echo esc_attr( $_aItem[ 'source' ] ); ?>" target="_blank"><?php echo parse_url( $_aItem[ 'source' ], PHP_URL_HOST ); ?></a></span>
             </div>
-            <?php echo strip_tags( $_aItem[ 'description' ] ); ?>
+            <?php echo "<div class='external-feed-description'>" . strip_tags( $_aItem[ 'description' ] ) . "</div>"; ?>
         </div>
     </div>
 <?php endforeach; ?>    

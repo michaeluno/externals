@@ -85,6 +85,10 @@ class Externals_ExternalOutput_feed extends Externals_ExternalOutput_Base {
                 'images'        => $this->_getImages( $_oItem->get_content() ),
                 'source'        => $_oItem->get_base(),
             );
+            if ( $_oEnclosure = $_oItem->get_enclosure()) {
+           		$_aItem[ 'description' ] .= $_oEnclosure->get_description();
+                $_aItem[ 'images' ][] = "<img src='" . esc_url( $_oEnclosure->get_thumbnail() ) . "' />";
+           	}
                         
             $_aItem = apply_filters(
                 Externals_Registry::HOOK_SLUG . '_filter_feed_item',
