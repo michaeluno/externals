@@ -67,6 +67,7 @@ WHen the external sites are, it will be useful
 - Released.
 
 = 0.3.13 =
+- Added the ability to remove expired HTTP request caches periodically.
 - Added the ability to filter images with sub-strings in feeds.
 
 = 0.3.12 =

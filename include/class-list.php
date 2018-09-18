@@ -55,6 +55,7 @@ $_aClassFiles = array(
 	"Externals_FormFields_Widget_ContxtualProduct"	=>	Externals_Registry::$sDirPath . "/include/class/main/admin/_form_fields/widget/Externals_FormFields_Widget_ContxtualProduct.php", 
 	"Externals_FormFields_Widget_Visibility"	=>	Externals_Registry::$sDirPath . "/include/class/main/admin/_form_fields/widget/Externals_FormFields_Widget_Visibility.php", 
 	"Externals_Event"	=>	Externals_Registry::$sDirPath . "/include/class/main/event/Externals_Event.php", 
+	"Externals_Event_HTTPCacheRemoval"	=>	Externals_Registry::$sDirPath . "/include/class/main/event/Externals_Event_HTTPCacheRemoval.php", 
 	"Externals_Event_HTTPCacheRenewal"	=>	Externals_Registry::$sDirPath . "/include/class/main/event/Externals_Event_HTTPCacheRenewal.php", 
 	"Externals_Shadow"	=>	Externals_Registry::$sDirPath . "/include/class/main/event/Externals_Shadow.php", 
 	"_Externals_Event_Scheduler"	=>	Externals_Registry::$sDirPath . "/include/class/main/event/_Externals_Event_Scheduler.php", 

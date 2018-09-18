@@ -44,9 +44,8 @@ class Externals_SettingAdminPage_Setting_Cache_Cache extends Externals_AdminPage
                 'attributes'      => array(
                     'class' => 'button button-secondary',
                 ),
-                'before_fieldset' => ''
-                    . "<p style='margin-bottom: 1em;'>" 
-                        . '<strong>' . __( 'Requests', 'externals' ) . '</strong>: ' . $_iRequestCount 
+                'before_fieldset' => "<p style='margin-bottom: 1em;'>"
+                        . sprintf( __( '%1$s items', 'externals' ), $_iRequestCount )
                     . '</p>',
             ),            
             array( 
@@ -58,10 +57,9 @@ class Externals_SettingAdminPage_Setting_Cache_Cache extends Externals_AdminPage
                 'attributes'      => array(
                     'class' => 'button button-secondary',
                 ),
-                'before_fieldset' => ''
-                    . "<p style='margin-bottom: 1em;'>" 
-                        . '<strong>' . __( 'Requests', 'externals' ) . '</strong>: ' . $_iExpiredRequests 
-                    . '</p>',                
+                'before_fieldset' => "<p style='margin-bottom: 1em;'>"
+                        . sprintf( __( '%1$s items', 'externals' ), $_iExpiredRequests )
+                    . '</p>',
             ),
             array(
                 'field_id'          => 'chaching_mode',
@@ -74,7 +72,27 @@ class Externals_SettingAdminPage_Setting_Cache_Cache extends Externals_AdminPage
                 ),
                 'description'       => __( 'The intense mode should only be enabled when the normal mode does not work.', 'externals' ),
                 'default' => 'normal',
-            )            
+            ),
+            array(
+                'field_id'       => 'clear_interval',
+                'title'          => __( 'Clearing Cache Interval', 'fetch-tweets' ),
+                'type'           => 'size',
+                'units'          => array(
+                    3600      => __( 'hour(s)', 'fetch-tweets' ),
+                    86400     => __( 'day(s)', 'fetch-tweets' ),
+                    604800    => __( 'week(s)', 'fetch-tweets' ),
+                ),
+                'description'    => __( 'An interval to clear expired caches.', 'fetch-tweets' ),
+                'default'        => array(
+                    'size'     => 7,
+                    'unit'     => 86400,
+                ),
+                'attributes'   => array(
+                    'size'  => array(
+                        'min'   => 1
+                    ),
+                ),
+            )
         );    
     }
         
@@ -90,11 +108,11 @@ class Externals_SettingAdminPage_Setting_Cache_Cache extends Externals_AdminPage
         $_aErrors   = array();
         
         if ( 'submit_clear_all_caches' === $aSubmitInfo[ 'field_id' ] ) {
-            $this->_clearAllCaches( $oAdminPage );
+            $this->___clearAllCaches( $oAdminPage );
             return $aOldInput;            
         }
         if ( 'submit_clear_expired_caches' === $aSubmitInfo[ 'field_id' ] ) {
-            $this->_clearExpiredCaches( $oAdminPage );
+            $this->___clearExpiredCaches( $oAdminPage );
             return $aOldInput;
         }
                 
@@ -115,7 +133,7 @@ class Externals_SettingAdminPage_Setting_Cache_Cache extends Externals_AdminPage
          * @since       1
          * @return      void
          */
-        private function _clearAllCaches( $oFactory ) {
+        private function ___clearAllCaches( $oFactory ) {
             
             // Clear transients.
             Externals_WPUtility::cleanTransients( 
@@ -138,7 +156,7 @@ class Externals_SettingAdminPage_Setting_Cache_Cache extends Externals_AdminPage
          * @since       1
          * @return      void
          */
-        private function _clearExpiredCaches( $oFactory ) {
+        private function ___clearExpiredCaches( $oFactory ) {
 
             $_oCacheTable   = new Externals_DatabaseTable_externals_request_cache;
             $_oCacheTable->deleteExpired();

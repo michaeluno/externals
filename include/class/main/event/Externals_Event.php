@@ -21,7 +21,8 @@ class Externals_Event {
     public function __construct() {
 
         new Externals_Event_HTTPCacheRenewal;
-                
+        new Externals_Event_HTTPCacheRemoval;
+
         new Externals_Event_Action_Prefetch(
             'externals_action_prefetch'
         );
