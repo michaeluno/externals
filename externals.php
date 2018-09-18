@@ -5,7 +5,7 @@
 	Description:    Displays external contents.
 	Author:         Michael Uno (miunosoft)
 	Author URI:     http://michaeluno.jp
-	Version:        0.3.13
+	Version:        0.3.14
 */
 
 /**
@@ -15,7 +15,7 @@
  */
 class Externals_Registry_Base {
  
-	const VERSION        = '0.3.13';    // <--- DON'T FORGET TO CHANGE THIS AS WELL!!
+	const VERSION        = '0.3.14';    // <--- DON'T FORGET TO CHANGE THIS AS WELL!!
 	const NAME           = 'Externals';
 	const DESCRIPTION    = 'Displays external contents.';
 	const URI            = 'http://en.michaeluno.jp/externals';

@@ -36,7 +36,7 @@ class Externals_Utility extends Externals_Utility_XML {
      * @since       3           Moved from `AmazonAutoLinks_Utility`
      * @return      string
      */
-    static public function getTrancatedString( $sString, $iLength, $sSuffix='...' ) {
+    static public function getTruncatedString( $sString, $iLength, $sSuffix='...' ) {
         
         return ( self::getStringLength( $sString ) > $iLength )
             ? self::getSubstring( 

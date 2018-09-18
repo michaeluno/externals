@@ -72,7 +72,7 @@ class Externals_SettingAdminPage_Setting_General_ExternalPreview extends Externa
         
         // Sanitize the custom preview slug.
         $aInput[ 'preview_post_type_slug' ] = Externals_Utility::getCharsForURLQueryKeySanitized(
-            Externals_Utility::getTrancatedString(
+            Externals_Utility::getTruncatedString(
                 $aInput[ 'preview_post_type_slug' ],
                 20, // character length
                 ''  // suffix
