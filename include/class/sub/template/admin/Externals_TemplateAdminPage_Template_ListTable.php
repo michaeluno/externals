@@ -79,7 +79,7 @@ class Externals_TemplateAdminPage_Template_ListTable extends Externals_AdminPage
                 . __( 'Data of Active Templates', 'externals' ) 
             . "</h4>";        
         echo $oFactory->oDebug->get(
-            Externals_TemplateOption::getInstance()->get()
+            Externals_TemplateOption::getInstance()->getActiveTemplates()
         );
         
     }

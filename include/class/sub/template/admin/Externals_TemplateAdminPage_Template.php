@@ -32,14 +32,14 @@ class Externals_TemplateAdminPage_Template extends Externals_AdminPage_Page_Base
                 'title'     => __( 'Installed', 'externals' ),
             )
         );
-        new Externals_TemplateAdminPage_Template_GetNew( 
-            $this->oFactory,
-            $this->sPageSlug,
-            array( 
-                'tab_slug'  => 'get',
-                'title'     => __( 'Get New', 'externals' ),
-            )
-        );
+//        new Externals_TemplateAdminPage_Template_GetNew(
+//            $this->oFactory,
+//            $this->sPageSlug,
+//            array(
+//                'tab_slug'  => 'get',
+//                'title'     => __( 'Get New', 'externals' ),
+//            )
+//        );
 
     }   
     
