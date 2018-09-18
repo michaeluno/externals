@@ -81,7 +81,7 @@ final class Externals_Registry extends Externals_Registry_Base {
         'setting'           => 'externals', 
         'table_versions'    => array(
             // $aDatabaseTables property key => {table name}_version
-            'request_cache' => 'externals_request_cache_version',
+            'externals_request_cache' => 'externals_request_cache_version',
         ),
         
         'template'          => 'externals_templates',
@@ -135,15 +135,21 @@ final class Externals_Registry extends Externals_Registry_Base {
      * @since       1
      */
     static public $aDatabaseTables = array(
-        'request_cache' => 'externals_request_cache',
+        'externals_request_cache' => array(
+            'name'              => 'externals_request_cache',  // serves as the table name suffix
+            'version'           => '1.0.0',
+            'across_network'    => true,
+            'class_name'        => 'Externals_DatabaseTable_externals_request_cache',
+        ),
     );
     /**
      * Stores the database table versions.
      * @since       1
+     * @deprecated  0.3.13
      */
-    static public $aDatabaseTableVersions = array(
-        'request_cache' => '1.0.0',
-    );
+//    static public $aDatabaseTableVersions = array(
+//        'request_cache' => '1.0.0',
+//    );
     
     /**
      * Sets up class properties.

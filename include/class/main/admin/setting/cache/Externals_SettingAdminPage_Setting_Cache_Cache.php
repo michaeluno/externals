@@ -28,16 +28,10 @@ class Externals_SettingAdminPage_Setting_Cache_Cache extends Externals_AdminPage
      */
     public function addFields( $oFactory, $sSectionID ) {
                         
-        $_oCacheTable      = new Externals_DatabaseTable_request_cache(
-            Externals_Registry::$aDatabaseTables[ 'request_cache' ]
-        );        
-        $_iRequestCount    = $_oCacheTable->getVariable( 
-            "SELECT COUNT(*) FROM {$_oCacheTable->sTableName}"
-        );
-        $_iExpiredRequests = $_oCacheTable->getVariable( 
-            "SELECT COUNT(*) FROM {$_oCacheTable->sTableName} "
-            . "WHERE expiration_time < NOW()" 
-        );
+        $_oCacheTable      = new Externals_DatabaseTable_externals_request_cache;
+        $_sTableName       = $_oCacheTable->getTableName();
+        $_iRequestCount    = $_oCacheTable->getTotalItemCount();
+        $_iExpiredRequests = $_oCacheTable->getExpiredItemCount();
         
         $oFactory->addSettingFields(
             $sSectionID, // the target section id    
@@ -131,9 +125,7 @@ class Externals_SettingAdminPage_Setting_Cache_Cache extends Externals_AdminPage
                 'apf_'
             );            
             
-            $_oCacheTable = new Externals_DatabaseTable_request_cache(
-                Externals_Registry::$aDatabaseTables[ 'request_cache' ]
-            );           
+            $_oCacheTable = new Externals_DatabaseTable_externals_request_cache;
             $_oCacheTable->delete(
                 // delete all rows by passing nothing.
             );    
@@ -148,12 +140,10 @@ class Externals_SettingAdminPage_Setting_Cache_Cache extends Externals_AdminPage
          */
         private function _clearExpiredCaches( $oFactory ) {
 
-            $_oCacheTable   = new Externals_DatabaseTable_request_cache(
-                Externals_Registry::$aDatabaseTables[ 'request_cache' ]
-            );           
+            $_oCacheTable   = new Externals_DatabaseTable_externals_request_cache;
             $_oCacheTable->deleteExpired();
-            
-            // DELETE FROM table WHERE (col1,col2) IN ((1,2),(3,4),(5,6))
             $oFactory->setSettingNotice( __( 'Caches have been cleared.', 'externals' ) );
-        }   
+
+        }
+
 }

@@ -39,7 +39,11 @@ class Externals_Option extends Externals_Option_Base {
         ),
     
         'cache'    =>    array(
-            'chaching_mode' => 'normal',
+            'chaching_mode'  => 'normal',
+            'clear_interval' => array(   // 0.3.13
+                'size'  => 7,
+                'unit'  => 86400,
+            ),
         ),
           
 

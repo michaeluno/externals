@@ -12,7 +12,7 @@
  * 
  * @since       1
  */
-class Externals_DatabaseTableInstall {
+class Externals_DatabaseTableInstall extends Externals_WPUtility {
 
     /**
      * 
@@ -22,16 +22,13 @@ class Externals_DatabaseTableInstall {
         $_sMethodName = $bInstallOrUninstall
             ? 'install'
             : 'uninstall';
-            
-        foreach( Externals_Registry::$aDatabaseTables as $_sKey => $_sTableName ) {
-            $_sClassName = "Externals_DatabaseTable_$_sKey";
-            $_oTable     = new $_sClassName(
-                $_sTableName,
-                Externals_Registry::$aDatabaseTableVersions[ $_sKey ] // version
-            );
+
+        foreach( Externals_Registry::$aDatabaseTables as $_sKey => $_aArguments ) {
+            $_sClassName = "Externals_DatabaseTable_{$_sKey}";
+            $_oTable     = new $_sClassName;
             $_oTable->$_sMethodName();
         }
- 
+
     }
    
 }

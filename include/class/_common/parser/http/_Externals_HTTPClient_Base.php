@@ -164,9 +164,7 @@ abstract class Externals_HTTPClient_Base extends Externals_PluginUtility {
          */
         private function _getCharacterSetFromCache( $sCacheName ) {
             
-            $_oCacheTable = new Externals_DatabaseTable_request_cache(
-                Externals_Registry::$aDatabaseTables[ 'request_cache' ]
-            );             
+            $_oCacheTable = new Externals_DatabaseTable_externals_request_cache;
             $_aRow = $_oCacheTable->getCache( 
                 $sCacheName // single item returns a single row
             ); 
@@ -198,9 +196,7 @@ abstract class Externals_HTTPClient_Base extends Externals_PluginUtility {
             $_aValidCaches = array();
             
             // First retrieve the cache
-            $_oCacheTable = new Externals_DatabaseTable_request_cache(
-                Externals_Registry::$aDatabaseTables[ 'request_cache' ]
-            ); 
+            $_oCacheTable = new Externals_DatabaseTable_externals_request_cache;
             
             // If a cache exists, use it.
             $_aCaches = 0 === $iCacheDuration
@@ -293,9 +289,7 @@ abstract class Externals_HTTPClient_Base extends Externals_PluginUtility {
         private function _setCache( $sURL, $mData, $iCacheDuration=86400 ) {
 
             $_sCharSet    = $this->_getCharacterSet( $mData );            
-            $_oCacheTable = new Externals_DatabaseTable_request_cache(
-                Externals_Registry::$aDatabaseTables[ 'request_cache' ]
-            );             
+            $_oCacheTable = new Externals_DatabaseTable_externals_request_cache;
             $_bResult = $_oCacheTable->setCache( 
                 $this->_getCacheName( $sURL ), // name
                 $mData,
@@ -320,9 +314,7 @@ abstract class Externals_HTTPClient_Base extends Externals_PluginUtility {
      */
     public function deleteCache() {
         
-        $_oCacheTable = new Externals_DatabaseTable_request_cache(
-            Externals_Registry::$aDatabaseTables[ 'request_cache' ]
-        );
+        $_oCacheTable = new Externals_DatabaseTable_externals_request_cache;
         foreach( $this->aURLs as $_sCacheName => $_sURL ) {            
 // @todo implement deleteCaches() method
             $_oCacheTable->deleteCache(

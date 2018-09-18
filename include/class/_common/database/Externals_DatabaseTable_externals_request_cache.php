@@ -12,27 +12,29 @@
  * 
  * @since       1
  */
-class Externals_DatabaseTable_request_cache extends Externals_DatabaseTable_Base {
-    
+class Externals_DatabaseTable_externals_request_cache extends Externals_DatabaseTable_Utility {
+
+    /**
+     * Returns the table arguments.
+     * @return      array
+     * @since       0.3.13
+     */
+    protected function _getArguments() {
+        return Externals_Registry::$aDatabaseTables[ 'externals_request_cache' ];
+    }
+
     /**
      * 
      * @return      string
      * @since       1
      */
     public function getCreationQuery() {
-        
-        // $_sDefaultCharset = $GLOBALS[ 'wpdb' ]->charset
-            // ? 'DEFAULT CHARACTER SET ' . $GLOBALS[ 'wpdb' ]->charset . ' '
-            // : '';
-        // $_sCollation      = $GLOBALS[ 'wpdb' ]->collate
-            // ? 'COLLATE ' . $GLOBALS[ 'wpdb' ]->collate
-            // : '';
-        // $_sCharset = trim( $_sDefaultCharset . $_sCollation );
+
         $_sCharset = $GLOBALS[ 'wpdb' ]->get_charset_collate();
         
         // With some unicode collation including utf8mb4_unicode_ci, the `varchar` type cannot be set to more than 191 
         // @see http://stackoverflow.com/questions/1814532/1071-specified-key-was-too-long-max-key-length-is-767-bytes/31474509#31474509
-        return "CREATE TABLE " . $this->sTableName . " (
+        return "CREATE TABLE " . $this->getTableName() . " (
             name varchar(191) UNIQUE,    
             request_uri text,   
             type varchar(20),
@@ -106,7 +108,7 @@ class Externals_DatabaseTable_request_cache extends Externals_DatabaseTable_Base
             public function doesRowExist( $sName ) {
                 return ( boolean ) $this->getVariable(
                     "SELECT name
-                    FROM {$this->sTableName}
+                    FROM {$this->aArguments[ 'table_name' ]}
                     WHERE name = '{$sName}'"
                 );             
             }
@@ -135,7 +137,7 @@ class Externals_DatabaseTable_request_cache extends Externals_DatabaseTable_Base
             $_sNames   = "('" . implode( "','", $aNames ) . "')";
             $_aResults =  $this->getRows(
                 "SELECT cache,modified_time,expiration_time,charset,request_uri,name
-                FROM {$this->sTableName}
+                FROM {$this->aArguments[ 'table_name' ]}
                 WHERE name in {$_sNames}"
             );       
 
@@ -158,7 +160,7 @@ class Externals_DatabaseTable_request_cache extends Externals_DatabaseTable_Base
             
             $_aRow = $this->getRow(
                 "SELECT cache,modified_time,expiration_time,charset,request_uri,name
-                FROM {$this->sTableName}
+                FROM {$this->aArguments[ 'table_name' ]}
                 WHERE name = '{$sName}'",
                 'ARRAY_A' 
             );                
@@ -215,20 +217,6 @@ class Externals_DatabaseTable_request_cache extends Externals_DatabaseTable_Base
         
     }
     
-    /**
-     * Removes expired items from the table.
-     * @since       1
-     */
-    public function deleteExpired( $sExpiryTime='' ) {
 
-        $sExpiryTime = $sExpiryTime
-            ? $sExpiryTime
-            : "NOW()";
-        $this->getVariable(
-            "DELETE FROM `{$this->sTableName}` "
-            . "WHERE expiration_time < {$sExpiryTime}" 
-        ); 
-        
-    }
     
 }

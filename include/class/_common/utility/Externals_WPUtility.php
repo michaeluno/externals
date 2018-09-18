@@ -14,7 +14,30 @@
  * @since       1
  */
 class Externals_WPUtility extends Externals_WPUtility_Post {
-    
+
+    /**
+     * Schedules WP Cron action once.
+     *
+     * @since       0.3.13
+     * @param       string      $sActionName        The WordPress action tag name.
+     * @param       array       $aArguments         The arguments to pass to the callback that handles the action.
+     * @param       integer     $iSchedulingTime    The scheduling time from now in seconds. If it should be done in one hour from now, set `3600`.
+     * @return      boolean     True if scheduled; otherwise, false.
+     */
+    static public function scheduleWPCronActionOnce( $sActionName, array $aArguments, $iSchedulingTime=0 ) {
+
+        if ( wp_next_scheduled( $sActionName, $aArguments ) ) {
+            return false;
+        }
+        $_bCancelled = wp_schedule_single_event(
+            time() + $iSchedulingTime,
+            $sActionName,
+            $aArguments    // must be enclosed in an array.
+        );
+        return false !== $_bCancelled;
+
+    }
+
     /**
      * Returns the readable date-time string.
      */

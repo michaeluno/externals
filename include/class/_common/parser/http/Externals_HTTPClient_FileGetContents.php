@@ -55,9 +55,7 @@ class Externals_HTTPClient_FileGetContents extends Externals_HTTPClient_Base {
          */
         protected function _getHTTPResponseWithCache( $sURL, $aArguments=array(), $iCacheDuration=86400 ) {
             
-            $_oCacheTable = new Externals_DatabaseTable_request_cache(
-                Externals_Registry::$aDatabaseTables[ 'request_cache' ]
-            );
+            $_oCacheTable = new Externals_DatabaseTable_externals_request_cache;
             
             // If a cache exists, use it.
             $_aData        = 0 === $iCacheDuration
