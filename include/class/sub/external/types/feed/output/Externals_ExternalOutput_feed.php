@@ -63,56 +63,27 @@ class Externals_ExternalOutput_feed extends Externals_ExternalOutput_Base {
         );
         
         $_iTimezoneOffset = ( integer ) $this->oArgument->get( 'source_timezone' );
-        
-        $_iCount = ( integer ) $this->oArgument->get( 'count' ) ;
+        $_iCount          = ( integer ) $this->oArgument->get( 'count' ) ;
 
+        $_iAdded = 0;
         $_aItems = array();
         foreach( $_oFeed->get_items() as $_iIndex => $_oItem ) {
             
-            if ( -1 !== $_iCount && $_iCount <= $_iIndex ) {
+            if ( -1 !== $_iCount && $_iCount <= $_iAdded ) {
                 break;
             }
-            
-            $_sID           = $_oItem->get_id();
-            $_nsDescription = $_oItem->get_description();
-            $_nsContent     = $_oItem->get_content();
-            $_oThisFeed = $_oItem->get_feed();
-            $_aItem = array(
-                'id'            => $_sID,   // guid
-                'title'         => $_oItem->get_title(),
-                'date'          => $this->_getItemDate( $_oItem, $_iTimezoneOffset ),
-                'author'        => $this->_getItemAuthor( $_oItem ),
-                'permalink'     => $_oItem->get_permalink(),
-                'description'   => $_nsDescription,
-                'content'       => $_nsContent,
-                'images'        => $this->_getImages( $_nsContent ? $_nsContent : $_nsDescription ),
-                'source'        => $_oItem->get_base(),
-                'source_feed'   => $_oThisFeed->subscribe_url(),
-            );
 
-            if ( $_oEnclosure = $_oItem->get_enclosure() ) {
-           		$_aItem[ 'description' ] .= $_oEnclosure->get_description();
-           		$_sImageURL = $_oEnclosure->get_thumbnail();
-                $_aItem[ 'images' ][ $_sImageURL ] = $_sImageURL;
-                if ( false !== strpos( $_oEnclosure->get_type(), 'image' ) ) {
-                    $_sImageURL = $_oEnclosure->get_link();
-                    $_aItem[ 'images' ][ $_sImageURL ] = $_sImageURL;
-                }
-           	}
+            $_sID   = $_oItem->get_id();
+            $_aItem = $this->___getItem( $_oItem, $_sID, $_iTimezoneOffset );
                         
-            $_aItem = apply_filters(
-                Externals_Registry::HOOK_SLUG . '_filter_feed_item',
-                $_aItem,
-                $_oItem, // 0.3.12+
-                $this->oArgument    // 0.3.13+
-            );            
-            
             // Black listed items will be dropped through the above filter.
             if ( empty( $_aItem ) ) {
                 continue;
             }            
-            
+
+            // Storing the item with the key of ID prevents duplicates.
             $_aItems[ $_sID ] = $_aItem;
+            $_iAdded++;
             
         }
 
@@ -120,6 +91,47 @@ class Externals_ExternalOutput_feed extends Externals_ExternalOutput_Base {
         
     }
 
+        /**
+         * @param $oItem
+         * @return  array
+         */
+        private function ___getItem( SimplePie_Item $oItem, $sID, $iTimezoneOffset ) {
+
+            $_nsDescription = $oItem->get_description();
+            $_nsContent     = $oItem->get_content();
+            $_oThisFeed     = $oItem->get_feed();
+            $_aItem = array(
+                'id'            => $sID,   // guid
+                'title'         => $oItem->get_title(),
+                'date'          => $this->_getItemDate( $oItem, $iTimezoneOffset ),
+                'author'        => $this->_getItemAuthor( $oItem ),
+                'permalink'     => $oItem->get_permalink(),
+                'description'   => $_nsDescription,
+                'content'       => $_nsContent,
+                'images'        => $this->_getImages( $_nsContent ? $_nsContent : $_nsDescription ),
+                'source'        => $oItem->get_base(),
+                'source_feed'   => $_oThisFeed->subscribe_url(),
+            );
+    
+            if ( $_oEnclosure = $oItem->get_enclosure() ) {
+                $_aItem[ 'description' ] .= $_oEnclosure->get_description();
+                $_sImageURL = $_oEnclosure->get_thumbnail();
+                $_aItem[ 'images' ][ $_sImageURL ] = $_sImageURL;
+                if ( false !== strpos( $_oEnclosure->get_type(), 'image' ) ) {
+                    $_sImageURL = $_oEnclosure->get_link();
+                    $_aItem[ 'images' ][ $_sImageURL ] = $_sImageURL;
+                }
+            }
+                        
+            return apply_filters(
+                Externals_Registry::HOOK_SLUG . '_filter_feed_item',
+                $_aItem,
+                $oItem, // 0.3.12+
+                $this->oArgument    // 0.3.13+
+            );            
+               
+        }    
+    
         /**
          * @since       1
          * @return      string

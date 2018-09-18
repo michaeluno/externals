@@ -67,6 +67,7 @@ WHen the external sites are, it will be useful
 - Released.
 
 = 0.3.14 =
+- Fixed a bug in the `feed` external type that the `count` option counted removed items.
 - Added the `source_feed` feed item element that stores the subject RSS URL.
 - Updated the template screen-shots.
 
