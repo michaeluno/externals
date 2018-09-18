@@ -66,6 +66,10 @@ WHen the external sites are, it will be useful
 = 1.0.0 = 
 - Released.
 
+= 0.3.14 =
+- Added the `source_feed` feed item element that stores the subject RSS URL.
+- Updated the template screen-shots.
+
 = 0.3.13 =
 - Added the ability to remove expired HTTP request caches periodically.
 - Added the ability to filter images with sub-strings in feeds.

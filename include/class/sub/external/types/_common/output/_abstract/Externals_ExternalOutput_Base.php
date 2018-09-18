@@ -122,7 +122,7 @@ abstract class Externals_ExternalOutput_Base extends Externals_PluginUtility {
                 }
             }        
         }
-        
+
         // Not found. In that case, use the default one.
         return apply_filters(
             Externals_Registry::HOOK_SLUG . '_filter_default_template_path',

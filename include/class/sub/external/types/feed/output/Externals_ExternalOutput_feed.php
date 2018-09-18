@@ -76,6 +76,7 @@ class Externals_ExternalOutput_feed extends Externals_ExternalOutput_Base {
             $_sID           = $_oItem->get_id();
             $_nsDescription = $_oItem->get_description();
             $_nsContent     = $_oItem->get_content();
+            $_oThisFeed = $_oItem->get_feed();
             $_aItem = array(
                 'id'            => $_sID,   // guid
                 'title'         => $_oItem->get_title(),
@@ -86,6 +87,7 @@ class Externals_ExternalOutput_feed extends Externals_ExternalOutput_Base {
                 'content'       => $_nsContent,
                 'images'        => $this->_getImages( $_nsContent ? $_nsContent : $_nsDescription ),
                 'source'        => $_oItem->get_base(),
+                'source_feed'   => $_oThisFeed->subscribe_url(),
             );
 
             if ( $_oEnclosure = $_oItem->get_enclosure() ) {

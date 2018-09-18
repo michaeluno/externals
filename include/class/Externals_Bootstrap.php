@@ -186,7 +186,7 @@ final class Externals_Bootstrap extends Externals_AdminPageFramework_PluginBoots
         // Load external type components.
         $this->_loadComponents();
        
-        // 3. Templates and Buttons
+        // 3. Active template resources
         new Externals_TemplateResourceLoader;
         
         // 4. Post Types
@@ -198,23 +198,7 @@ final class Externals_Bootstrap extends Externals_AdminPageFramework_PluginBoots
             
         // 5. Admin pages
         if ( $this->bIsAdmin ) {
-                    
-            // Root menu 
-            // new Externals_AdminPage( 
-                // '',  // no option
-                // $this->sFilePath 
-            // );
 
-            // new Externals_AddNewExternalAdminPage(
-                // array(
-                    // 'type'      => 'transient',
-                    // 'key'       => $GLOBALS[ 'externals_transient_id' ],
-                    // 'duration'  => 60*60*24*2,
-                // ),
-                // $this->sFilePath 
-            // );        
-       
-       
             new Externals_SettingAdminPage( 
                 Externals_Registry::$aOptionKeys[ 'setting' ], 
                 $this->sFilePath 
@@ -225,20 +209,12 @@ final class Externals_Bootstrap extends Externals_AdminPageFramework_PluginBoots
                 $this->sFilePath 
             );
             
-            
             new Externals_HelpAdminPage(
                 '', // no options
                 $this->sFilePath 
             );
 
-
         }
-                
-            
-        // 7. Widgets
-        // new Externals_WidgetByID(
-            // __( 'Externals', 'externals' )
-        // );
 
         // 9. Events
         new Externals_Event;    
